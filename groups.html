@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PlanetOfSounds — Всі гурти</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="logo">PlanetOfSounds</h1>
+        <nav class="main-nav">
+          <a href="index.html">Головна</a>
+          <a href="groups.html">Гурти</a>
+          <a href="add.html">Додати гурт</a>
+          <a href="register.html">Реєстрація</a>
+        </nav>
+        <div class="header-actions">
+          <input type="text" id="searchInput" placeholder="🔍 Пошук гурту..." />
+          <button id="themeToggle">🌞</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <h2>Список гуртів</h2>
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="🔍 Пошук гурту..." />
+        <select id="genreFilter">
+          <option value="all">Всі жанри</option>
+        </select>
+      </div>
+
+      <div id="bandList" class="group-list"></div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>©PlanetOfSounds - з нами, бо ми найкращі</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

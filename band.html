@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PlanetOfSounds — Опис гурту</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="logo">PlanetOfSounds</h1>
+        <nav class="main-nav">
+          <a href="index.html">Головна</a>
+          <a href="groups.html">Гурти</a>
+          <a href="add.html">Додати гурт</a>
+          <a href="register.html">Реєстрація</a>
+        </nav>
+        <div class="header-actions">
+          <button id="themeToggle">🌞</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="bandDetail" class="card"></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© MusicWorld</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        function renderBandDetailFromQuery() {
+          const params = new URLSearchParams(window.location.search);
+          const bandName = params.get("name");
+          if (!bandName) return;
+
+          const bands = JSON.parse(localStorage.getItem("bands") || "[]");
+          const band = bands.find((b) => b.name === bandName);
+          const detailSection = document.getElementById("bandDetail");
+
+          if (!band || !detailSection) return;
+
+          detailSection.innerHTML = `
+          <h2>${band.name}</h2>
+          <img src="${band.image}" alt="${band.name}" style="width:100%;max-width:500px;border-radius:10px;margin-bottom:10px;">
+          <p><strong>Жанр:</strong> ${band.genre}</p>
+          <p><strong>Рік створення:</strong> ${band.year}</p>
+          <p>${band.description}</p>
+          <a href="${band.video}" target="_blank" class="btn">Відкрити у Spotify</a>
+        `;
+        }
+
+        renderBandDetailFromQuery();
+      });
+    </script>
+  </body>
+</html>

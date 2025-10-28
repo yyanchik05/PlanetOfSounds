@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PlanetOfSounds - Реєстрація</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="logo">PlanetOfSounds</h1>
+        <nav class="main-nav">
+          <a href="index.html">Головна</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h2>Реєстрація користувача</h2>
+      <form id="registerForm" class="card form-card">
+        <label
+          >Ім'я користувача<span class="required"></span>
+          <input id="username" type="text" required />
+        </label>
+        <label
+          >Email<span class="required"></span>
+          <input id="email" type="email" required />
+        </label>
+        <label
+          >Пароль<span class="required"></span>
+          <input id="password" type="password" required />
+        </label>
+        <button class="btn" type="submit">Зареєструватися</button>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>©PlanetOfSounds - з нами, бо ми найкращі</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

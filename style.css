@@ -1,0 +1,233 @@
+:root {
+  --bg: #f7fbf7; /* very light green */
+  --card: #ffffff;
+  --accent: #2f9d64; /* main green */
+  --accent-2: #60b98f; /* lighter green */
+  --muted: #6b6b6b;
+  --text: #0b2a16;
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(47, 157, 100, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.site-header {
+  background: linear-gradient(90deg, #eaf7ee, #f0fbf6);
+  border-bottom: 1px solid rgba(47, 157, 100, 0.08);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+.logo {
+  font-size: 22px;
+  color: var(--accent);
+  margin: 0;
+}
+.main-nav a {
+  margin-left: 14px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.hero {
+  display: flex;
+  gap: 24;
+}
+
+/* ========== MusicWorld CSS ========== */
+/* Світло-зелені відтінки, адаптивні картки, кнопки та темна тема */
+
+/* ----- Загальні стилі ----- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4fff4; /* світло-зелений фон */
+  color: #197719; /* темно-зелений текст */
+  line-height: 1.6;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 10px;
+}
+
+a {
+  color: #2e7d32;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #1b5e20;
+}
+
+/* ----- Кнопки ----- */
+.btn {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #66bb6a;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background-color: #388e3c;
+  transform: translateY(-2px);
+}
+
+/* ----- Форма додавання гурту ----- */
+form {
+  background-color: #e8f5e9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+label + label {
+  display: block;
+  margin-top: 1.5em;
+}
+
+form input[type="text"],
+form input[type="number"],
+form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #a5d6a7;
+  border-radius: 5px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+/* ----- Пошук та фільтр ----- */
+#searchInput,
+#genreFilter {
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #a5d6a7;
+  border-radius: 5px;
+}
+
+/* ----- Список гуртів / картки ----- */
+#bandList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.band-card {
+  background-color: #dcedc8;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.band-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.band-card h3 {
+  margin: 10px;
+  font-size: 1.2rem;
+}
+
+.band-card p {
+  margin: 5px 10px;
+  font-size: 0.95rem;
+}
+
+.band-card .btn {
+  margin: 10px;
+}
+
+/* Анімація при наведенні */
+.band-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ----- Темна тема ----- */
+.dark-theme {
+  background-color: #1e481e;
+  color: #c8facc;
+}
+
+.dark-theme a {
+  color: #81c784;
+}
+
+.dark-theme a:hover {
+  color: #a5d6a7;
+}
+
+.dark-theme form {
+  background-color: #2e3b2e;
+  color: #c8facc;
+}
+
+.dark-theme input,
+.dark-theme textarea,
+.dark-theme select {
+  background-color: #4a5b4a;
+  color: #c8facc;
+  border: 1px solid #81c784;
+}
+
+.dark-theme .band-card {
+  background-color: #2e3b2e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-theme .btn {
+  background-color: #81c784;
+  color: #1b2c1b;
+}
+
+.dark-theme .btn:hover {
+  background-color: #66bb6a;
+}
+
+/* ----- Адаптивність ----- */
+@media (max-width: 600px) {
+  #bandList {
+    grid-template-columns: 1fr;
+  }
+}
