@@ -1,8 +1,8 @@
 :root {
-  --bg: #f7fbf7; /* very light green */
+  --bg: #f7fbf7;
   --card: #ffffff;
-  --accent: #2f9d64; /* main green */
-  --accent-2: #60b98f; /* lighter green */
+  --accent: #2f9d64;
+  --accent-2: #60b98f;
   --muted: #6b6b6b;
   --text: #0b2a16;
   --radius: 10px;
@@ -52,10 +52,7 @@ body {
   gap: 24;
 }
 
-/* ========== MusicWorld CSS ========== */
-/* Світло-зелені відтінки, адаптивні картки, кнопки та темна тема */
-
-/* ----- Загальні стилі ----- */
+/* ----- --------------------------------------Загальні стилі */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -64,8 +61,8 @@ body {
 }
 
 body {
-  background-color: #f4fff4; /* світло-зелений фон */
-  color: #197719; /* темно-зелений текст */
+  background-color: #e4f5e4; /* фон */
+  color: #197719; /* текст */
   line-height: 1.6;
   padding: 20px;
   transition: background-color 0.3s, color 0.3s;
@@ -87,7 +84,7 @@ a:hover {
   color: #1b5e20;
 }
 
-/* ----- Кнопки ----- */
+/* ---------------------------------------------------------Кнопки  */
 .btn {
   display: inline-block;
   padding: 8px 15px;
@@ -104,9 +101,9 @@ a:hover {
   transform: translateY(-2px);
 }
 
-/* ----- Форма додавання гурту ----- */
+/* ------------------------------------------------------------додавання гурту*/
 form {
-  background-color: #e8f5e9;
+  background-color: #d5e7d6;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -131,7 +128,7 @@ form label {
   font-weight: bold;
 }
 
-/* ----- Пошук та фільтр ----- */
+/* ---------------------------------------------------------------пошук і фільтр*/
 #searchInput,
 #genreFilter {
   padding: 8px;
@@ -140,7 +137,7 @@ form label {
   border-radius: 5px;
 }
 
-/* ----- Список гуртів / картки ----- */
+/* ----------------------------------------------------------список гуртів і картки*/
 #bandList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -178,16 +175,15 @@ form label {
   margin: 10px;
 }
 
-/* Анімація при наведенні */
 .band-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* ----- Темна тема ----- */
+/* -----------------------------------------------------------------------темна тема */
 .dark-theme {
-  background-color: #1e481e;
-  color: #c8facc;
+  background-color: #244f24;
+  color: #b9e0bc;
 }
 
 .dark-theme a {
@@ -225,7 +221,120 @@ form label {
   background-color: #66bb6a;
 }
 
-/* ----- Адаптивність ----- */
+/* ------------------------------------------------------Форма входу  */
+#loginForm {
+  background-color: #d5e7d6;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#loginForm label {
+  font-weight: bold;
+  color: #1b5e20;
+}
+
+#loginForm input[type="email"],
+#loginForm input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a5d6a7;
+  border-radius: 5px;
+  background-color: #f7fbf7;
+  font-size: 14px;
+}
+
+#loginForm input:focus {
+  outline: none;
+  border-color: #66bb6a;
+}
+
+#loginForm .btn {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+/* -----------------------------------------------------Підпис під формою */
+#loginForm + p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+main p a {
+  color: #2e7d32;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+main p a:hover {
+  color: #1b5e20;
+}
+
+/* ------------------------------------------------------Форма реєстрації */
+#registerForm {
+  background-color: #d5e7d6;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#registerForm label {
+  font-weight: bold;
+  color: #1b5e20;
+}
+#registerForm input[type="text"],
+#registerForm input[type="email"],
+#registerForm input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a5d6a7;
+  border-radius: 5px;
+  background-color: #f7fbf7;
+  font-size: 14px;
+}
+
+#registerForm input:focus {
+  outline: none;
+  border-color: #66bb6a;
+}
+
+#registerForm .btn {
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+/* -----------------------------------------------------Підпис під формою */
+#registerForm + p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+main p a {
+  color: #2e7d32;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+main p a:hover {
+  color: #1b5e20;
+}
+
+.login-page h2 {
+  text-align: center;
+}
+
 @media (max-width: 600px) {
   #bandList {
     grid-template-columns: 1fr;
