@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="uk">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PlanetOfSounds - Додати гурт</title>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -12,23 +12,25 @@
         <h1 class="logo">PlanetOfSounds</h1>
         <nav class="main-nav">
           <a href="index.html">Головна</a>
-          <a href="groups.html">Гурти</a>
-          <a href="register.html">Реєстрація</a>
+          <a href="bands.html">Гурти</a>
         </nav>
+        <button id="themeToggle">🌞</button>
       </div>
     </header>
 
     <main class="container">
-      <h2>Додати новий гурт</h2>
+      <h2>Новий гурт</h2>
       <form id="addBandForm" class="card form-card">
         <label
           >Назва гурту<span class="required"></span>
           <input id="bandName" type="text" required />
         </label>
+
         <label
           >Рік заснування<span class="required"></span>
           <input id="bandYear" type="number" required />
         </label>
+
         <label
           >Жанр <span class="required"></span>
           <select id="genre" required>
@@ -37,31 +39,35 @@
             <option>Рок</option>
             <option>Поп</option>
             <option>Метал</option>
-            <option>Електронна</option>
+            <option>Електроніка</option>
             <option>Хіп-хоп</option>
             <option>Інді</option>
             <option>Поп-Рок</option>
             <option>Інше</option>
           </select>
         </label>
+
         <label
           >Історія гурту<span class="required"></span>
           <textarea id="bandDesc" rows="4" required></textarea>
         </label>
+
         <label
           >Альбоми
           <input id="albums" type="text" placeholder="Album1, Album2" />
         </label>
+
         <label
           >Посилання на Spotify<span class="required"></span>
-          <input id="bandVideo" type="text" placeholder="URL" required />
+          <input id="bandSpotify" type="text" placeholder="URL" required />
         </label>
+
         <label
           >Фото гурту<span class="required"></span>
           <input id="bandImage" type="file" accept="image/*" required />
         </label>
         <button class="btn" type="submit">Додати</button>
-        <a class="btn ghost" href="index.html">Скасувати</a>
+        <a href="index.html">Скасувати</a>
       </form>
     </main>
 
@@ -71,6 +77,29 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyB8HpfXZB4XElyIHWWD2kORt4rNTkBjOAM",
+        authDomain: "planetofsounds.firebaseapp.com",
+        projectId: "planetofsounds",
+        storageBucket: "planetofsounds.firebasestorage.app",
+        messagingSenderId: "100487931303",
+        appId: "1:100487931303:web:4cb141cb332a21767f4282",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      window.auth = auth;
+      window.db = db;
+    </script>
+
+    <script type="module" src="script.js"></script>
   </body>
 </html>
+
