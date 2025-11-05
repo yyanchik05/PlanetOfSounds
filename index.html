@@ -1,46 +1,37 @@
 <!DOCTYPE html>
 <html lang="uk">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>PlanetOfSounds — Головна</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanetOfSounds - Головна</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- ===== Верхнє меню ===== -->
     <header class="site-header">
       <div class="container header-inner">
         <h1 class="logo">PlanetOfSounds</h1>
         <nav class="main-nav">
           <a href="index.html">Головна</a>
-          <a href="groups.html">Гурти</a>
+          <a href="bands.html">Гурти</a>
           <a href="add.html">Додати гурт</a>
-          <a href="register.html">Реєстрація</a>
         </nav>
         <div class="header-actions">
           <input type="text" id="searchInput" placeholder="🔍 Пошук гурту..." />
-          <button id="themeToggle" class="btn">🌞</button>
+          <button id="themeToggle">🌞</button>
         </div>
       </div>
     </header>
 
-    <!-- ===== Головний блок ===== -->
     <main class="container">
       <section class="hero">
         <div>
           <h2>Ласкаво просимо у PlanetOfSounds</h2>
-          <p>
-            Каталог музичних гуртів: історія, альбоми, кліпи та ваші додавання.
-          </p>
-          <a class="btn" href="groups.html">Переглянути гурти</a>
+          <p>Каталог музичних гуртів: історія, альбоми, кліпи.</p>
+          <a class="btn" href="bands.html">Переглянути гурти</a>
         </div>
-        <img src="images/music_hero.png" alt="music" />
       </section>
 
-      <section id="bandList" class="featured-bands">
-        <h2>Популярні гурти</h2>
-        <div class="band-grid"></div>
-      </section>
+      <section id="bandList" class="band-list"></section>
     </main>
 
     <footer class="site-footer">
@@ -49,6 +40,29 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyB8HpfXZB4XElyIHWWD2kORt4rNTkBjOAM",
+        authDomain: "planetofsounds.firebaseapp.com",
+        projectId: "planetofsounds",
+        storageBucket: "planetofsounds.firebasestorage.app",
+        messagingSenderId: "100487931303",
+        appId: "1:100487931303:web:4cb141cb332a21767f4282",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      window.auth = auth;
+      window.db = db;
+    </script>
+
+    <script type="module" src="script.js"></script>
   </body>
 </html>
+
