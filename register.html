@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="uk">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PlanetOfSounds - Реєстрація</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body class="login-page">
     <header class="site-header">
       <div class="container header-inner">
         <h1 class="logo">PlanetOfSounds</h1>
         <nav class="main-nav">
           <a href="index.html">Головна</a>
+          <a href="bands.html">Гурти</a>
         </nav>
       </div>
     </header>
 
     <main class="container">
-      <h2>Реєстрація користувача</h2>
-      <form id="registerForm" class="card form-card">
-        <label
-          >Ім'я користувача<span class="required"></span>
-          <input id="username" type="text" required />
-        </label>
-        <label
-          >Email<span class="required"></span>
-          <input id="email" type="email" required />
-        </label>
-        <label
-          >Пароль<span class="required"></span>
-          <input id="password" type="password" required />
-        </label>
+      <h2>Реєстрація</h2>
+      <form id="registerForm">
+        <label for="regUsername">Ім’я користувача:</label>
+        <input type="text" id="regUsername" required />
+
+        <label for="regEmail">Email:</label>
+        <input type="email" id="regEmail" required />
+
+        <label for="regPassword">Пароль:</label>
+        <input type="password" id="regPassword" required />
+
         <button class="btn" type="submit">Зареєструватися</button>
       </form>
+      <p>Вже є акаунт? <a href="login.html">Увійти</a></p>
     </main>
 
     <footer class="site-footer">
@@ -41,6 +40,28 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyB8HpfXZB4XElyIHWWD2kORt4rNTkBjOAM",
+        authDomain: "planetofsounds.firebaseapp.com",
+        projectId: "planetofsounds",
+        storageBucket: "planetofsounds.firebasestorage.app",
+        messagingSenderId: "100487931303",
+        appId: "1:100487931303:web:4cb141cb332a21767f4282",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      window.auth = auth;
+      window.db = db;
+    </script>
+
+    <script type="module" src="script.js"></script>
   </body>
 </html>
