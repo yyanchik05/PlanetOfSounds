@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanetOfSounds - Вподобані гурти</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="logo">PlanetOfSounds</h1>
+        <nav class="main-nav">
+          <a href="index.html">Головна</a>
+          <a href="bands.html">Гурти</a>
+          <a href="add.html">Додати гурт</a>
+        </nav>
+        <div class="header-actions">
+          <input type="text" id="searchInput" placeholder="🔍 Пошук гурту..." />
+          <button id="themeToggle">🌞</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <h2>💖 Мої вподобання</h2>
+      <div class="filters">
+        <select id="genreFilter">
+          <option value="all">Усі жанри</option>
+        </select>
+      </div>
+
+      <section id="bandList" class="band-list"></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© PlanetOfSounds — з нами, бо ми найкращі</p>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyB8HpfXZB4XElyIHWWD2kORt4rNTkBjOAM",
+        authDomain: "planetofsounds.firebaseapp.com",
+        projectId: "planetofsounds",
+        storageBucket: "planetofsounds.firebasestorage.app",
+        messagingSenderId: "100487931303",
+        appId: "1:100487931303:web:4cb141cb332a21767f4282",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      window.auth = auth;
+      window.db = db;
+
+      window.onlyLikedPage = true;
+    </script>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
