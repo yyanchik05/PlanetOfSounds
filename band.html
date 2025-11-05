@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="uk">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>PlanetOfSounds — Сторінка гурту</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlanetOfSounds - Сторінка гурту</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -12,9 +12,8 @@
         <h1 class="logo">PlanetOfSounds</h1>
         <nav class="main-nav">
           <a href="index.html">Головна</a>
-          <a href="groups.html">Гурти</a>
+          <a href="bands.html">Гурти</a>
           <a href="add.html">Додати гурт</a>
-          <a href="register.html">Реєстрація</a>
         </nav>
         <div class="header-actions">
           <button id="themeToggle">🌞</button>
@@ -23,41 +22,156 @@
     </header>
 
     <main class="container">
-      <section id="bandDetail" class="card"></section>
+      <section id="bandDetails" class="card"></section>
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <p>© MusicWorld</p>
+        <p>©PlanetOfSounds - з нами, бо ми найкращі</p>
       </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        function renderBandDetailFromQuery() {
-          const params = new URLSearchParams(window.location.search);
-          const bandName = params.get("name");
-          if (!bandName) return;
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-          const bands = JSON.parse(localStorage.getItem("bands") || "[]");
-          const band = bands.find((b) => b.name === bandName);
-          const detailSection = document.getElementById("bandDetail");
+      const firebaseConfig = {
+        apiKey: "AIzaSyB8HpfXZB4XElyIHWWD2kORt4rNTkBjOAM",
+        authDomain: "planetofsounds.firebaseapp.com",
+        projectId: "planetofsounds",
+        storageBucket: "planetofsounds.firebasestorage.app",
+        messagingSenderId: "100487931303",
+        appId: "1:100487931303:web:4cb141cb332a21767f4282",
+      };
 
-          if (!band || !detailSection) return;
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
 
-          detailSection.innerHTML = `
-          <h2>${band.name}</h2>
-          <img src="${band.image}" alt="${band.name}" style="width:100%;max-width:500px;border-radius:10px;margin-bottom:10px;">
-          <p><strong>Жанр:</strong> ${band.genre}</p>
-          <p><strong>Рік створення:</strong> ${band.year}</p>
-          <p>${band.description}</p>
-          <a href="${band.video}" target="_blank" class="btn">Відкрити у Spotify</a>
-        `;
+      window.auth = auth;
+      window.db = db;
+    </script>
+
+    <script type="module">
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import {
+        getFirestore,
+        collection,
+        query,
+        where,
+        getDocs,
+        doc,
+        updateDoc,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const auth = window.auth;
+        const db = window.db;
+
+        const params = new URLSearchParams(window.location.search);
+        const bandName = params.get("name");
+        if (!bandName) return;
+
+        const bandsCol = collection(db, "bands");
+        const q = query(bandsCol, where("name", "==", bandName));
+        const snap = await getDocs(q);
+
+        const container = document.getElementById("bandDetails");
+
+        if (snap.empty) {
+          container.innerHTML = "<p>Гурт не знайдено 😔</p>";
+          return;
         }
 
-        renderBandDetailFromQuery();
+        const docSnap = snap.docs[0];
+        const band = { id: docSnap.id, ...docSnap.data() };
+
+        let userLikedBands = [];
+        if (auth.currentUser) {
+          const likesCol = collection(db, "likes");
+          const q2 = query(likesCol, where("uid", "==", auth.currentUser.uid));
+          const snap2 = await getDocs(q2);
+          if (!snap2.empty) {
+            const likeDoc = snap2.docs[0];
+            userLikedBands = likeDoc.data().likedBands || [];
+          }
+        }
+
+        const renderLikeButton = () => {
+          const liked = userLikedBands.includes(band.name);
+          return `<button id="likeBtn" style="font-size:24px;background:none;border:none;cursor:pointer;">
+        ${liked ? "❤️" : "🤍"} <span>${band.likes || 0}</span>
+      </button>`;
+        };
+
+        container.innerHTML = `
+      <h2>${band.name}</h2>
+      <img src="${band.image}" alt="${band.name}" 
+           style="width:100%;max-width:500px;height:auto;border-radius:10px;margin-bottom:10px;">
+      <p><strong>Жанр:</strong> ${band.genre}</p>
+      <p><strong>Рік заснування:</strong> ${band.year}</p>
+      <p>${band.description}</p>
+      <a href="${
+        band.spotify
+      }" target="_blank" class="btn">Відкрити у Spotify</a>
+      ${renderLikeButton()}
+    `;
+
+        const likeBtn = document.getElementById("likeBtn");
+        if (likeBtn && auth.currentUser) {
+          likeBtn.addEventListener("click", async () => {
+            const likesCol = collection(db, "likes");
+            const q2 = query(
+              likesCol,
+              where("uid", "==", auth.currentUser.uid)
+            );
+            const snap2 = await getDocs(q2);
+
+            let likeDocRef = null;
+            let likeData = null;
+            if (!snap2.empty) {
+              const doc2 = snap2.docs[0];
+              likeDocRef = doc(db, "likes", doc2.id);
+              likeData = doc2.data();
+            }
+
+            const liked = userLikedBands.includes(band.name);
+            let newLiked = liked
+              ? userLikedBands.filter((n) => n !== band.name)
+              : [...userLikedBands, band.name];
+
+            if (likeDocRef) {
+              await updateDoc(likeDocRef, { likedBands: newLiked });
+            } else {
+              await addDoc(likesCol, {
+                uid: auth.currentUser.uid,
+                likedBands: newLiked,
+              });
+            }
+
+            const newLikesCount = liked
+              ? (band.likes || 1) - 1
+              : (band.likes || 0) + 1;
+
+            const bandDocRef = doc(db, "bands", band.id);
+            await updateDoc(bandDocRef, { likes: newLikesCount });
+
+            userLikedBands = newLiked;
+            band.likes = newLikesCount;
+            likeBtn.innerHTML = `${
+              userLikedBands.includes(band.name) ? "❤️" : "🤍"
+            } <span>${band.likes}</span>`;
+          });
+        } else if (!auth.currentUser && likeBtn) {
+          likeBtn.addEventListener("click", () => {
+            alert("Щоб ставити лайки, авторизуйтеся!");
+          });
+        }
       });
     </script>
+
+    <script type="module" src="script.js"></script>
   </body>
 </html>
